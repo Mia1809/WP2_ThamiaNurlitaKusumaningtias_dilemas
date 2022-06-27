@@ -109,7 +109,7 @@
 								<td class="title">
 									<H3>SISFO INVOICE</H3>
 								</td>
-
+								
 								<td>
 									Invoice #: <?= $invoice['no_invoice'] ?><br />
 									Created: <?= $invoice['date']?><br />
@@ -124,62 +124,56 @@
 						<table>
 							<tr>
 								<td>
-									Sparksuite, Inc.<br />
+									PTSISFO.<br />
 									12345 Sunny Road<br />
 									Sunnyville, CA 12345
 								</td>
 
+                                 <?php $query = $this->db->get_where('customer', ['id'=>$invoice['customer_id']]);
+                                 $customer = $query->row_array();
+                                  ?>
 								<td>
-									Acme Corp.<br />
-									John Doe<br />
-									john@example.com
+									<?= $customer['nama'] ?>.<br />
+									<?= $customer['alamat'] ?><br />
+									<?= $customer['no_tlpn'] ?>
 								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 
-				<tr class="heading">
-					<td>Payment Method</td>
-
-					<td>Check #</td>
-				</tr>
-
 				<tr class="details">
 					<td>Check</td>
 
 					<td>1000</td>
+					<td></td>
 				</tr>
 
 				<tr class="heading">
 					<td>Item</td>
 
-					<td>Price</td>
+					<td>Quantity</td>
+					<td>Harga</td>
 				</tr>
+                <?php foreach ($invoiceItems as $key => $invoiceItem) : ?>
+                <tr>
+                    <td>
 
-				<tr class="item">
-					<td>Website design</td>
-
-					<td>$300.00</td>
-				</tr>
-
-				<tr class="item">
-					<td>Hosting (3 months)</td>
-
-					<td>$75.00</td>
-				</tr>
-
-				<tr class="item last">
-					<td>Domain name (1 year)</td>
-
-					<td>$10.00</td>
-				</tr>
-
-				<tr class="total">
-					<td></td>
-
-					<td>Total: $385.00</td>
-				</tr>
+                             <?php $query = $this->db->get_where('produk', ['id'=>$invoiceItem['produk_id']]);
+                             $produk = $query->row_array();
+                             
+                             echo $produk['nama'];
+                              ?>
+                    </td>
+                    <td>
+                        <?= $invoiceItem['quantity'] ?>
+                    </td>
+                    <td>
+                        <?= $produk['harga'] ?>
+                        
+                    </td>
+                </tr>
+                <?php endforeach ?>
 			</table>
 		</div>
 	</body>
