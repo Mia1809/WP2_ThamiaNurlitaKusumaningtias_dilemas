@@ -13,7 +13,7 @@ class ModelSiswa extends CI_Model
     {
           if ($slug === FALSE)
         {
-                $query = $this->db->get('siswa');
+                $query = $this->db->get('produk');
                 return $query->result_array();
         }
 
